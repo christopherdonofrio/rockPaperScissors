@@ -55,7 +55,7 @@ function winner(yourScore, cpuScore) {
 }
 
 
-
+/*
 function game() {
 
     let cpuScore = 0;
@@ -84,4 +84,60 @@ function game() {
     endResult = winner(yourScore, cpuScore);
 
     console.log("Your Wins: " + yourScore + "\nCpu Wins: " + cpuScore + "\nDraws: " + draws + "\n\n" + endResult);
+}
+*/
+const button1 = document.getElementById('rock-button');
+const button2 = document.getElementById('paper-button');
+const button3 = document.getElementById('scissors-button');
+
+
+button1.addEventListener('click', function() {
+    updateDisplay(playRound('Rock', getComputerChoice()));
+
+
+});
+
+button2.addEventListener('click', function() {
+    updateDisplay(playRound('Paper', getComputerChoice()));
+
+
+});
+
+button3.addEventListener('click', function() {
+    
+
+
+    updateDisplay(playRound('Scissors', getComputerChoice()));
+});
+
+let playerScore = 0
+let cpuScore = 0
+
+function updateDisplay(resultText) {
+
+
+    const result = document.querySelector('.result')
+    result.textContent = resultText
+
+
+    if (result.slice(4,7) === 'Win') {
+        playerScore++;
+
+    }
+    else if (result.slice(4,7) === 'Los') {
+        cpuScore++;
+    }
+
+    const player = document.querySelector('.player');
+    const cpu = document.querySelector('.cpu')
+    
+
+    player.textContent = playerScore;
+    cpu.textContent = cpuScore;
+
+    
+
+
+
+
 }
