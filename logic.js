@@ -1,3 +1,7 @@
+document.addEventListener('DOMContentLoaded', function () {
+   
+
+
 function getComputerChoice() {
     num = Math.floor(Math.random()*3) + 1;
     if (num === 1) {
@@ -91,24 +95,24 @@ const button2 = document.getElementById('paper-button');
 const button3 = document.getElementById('scissors-button');
 
 
-button1.addEventListener('click', function() {
-    updateDisplay(playRound('Rock', getComputerChoice()));
+function button1Click() {
+    const result = playRound('Rock', getComputerChoice());
+    updateDisplay(result);
+}
 
+function button2Click() {
+    const result = playRound('Paper', getComputerChoice());
+    updateDisplay(result);
+}
 
-});
+function button3Click() {
+    const result = playRound('Scissors', getComputerChoice());
+    updateDisplay(result);
+}
 
-button2.addEventListener('click', function() {
-    updateDisplay(playRound('Paper', getComputerChoice()));
-
-
-});
-
-button3.addEventListener('click', function() {
-    
-
-
-    updateDisplay(playRound('Scissors', getComputerChoice()));
-});
+button1.addEventListener('click', button1Click);
+button2.addEventListener('click', button2Click);
+button3.addEventListener('click', button3Click);
 
 let playerScore = 0
 let cpuScore = 0
@@ -116,15 +120,14 @@ let cpuScore = 0
 function updateDisplay(resultText) {
 
 
-    const result = document.querySelector('.result')
-    result.textContent = resultText
+    document.getElementById('result').textContent = resultText
 
 
-    if (result.slice(4,7) === 'Win') {
+    if (resultText.slice(0,7) === 'You Win') {
         playerScore++;
 
     }
-    else if (result.slice(4,7) === 'Los') {
+    else if (resultText.slice(0,8) === 'You Lose') {
         cpuScore++;
     }
 
@@ -132,12 +135,41 @@ function updateDisplay(resultText) {
     const cpu = document.querySelector('.cpu')
     
 
-    player.textContent = playerScore;
-    cpu.textContent = cpuScore;
-
+    player.textContent = 'Your Score: ' + playerScore;
+    cpu.textContent = 'Cpu Score: ' + cpuScore;
     
+
+    if (cpuScore + playerScore === 5) {
+        if (cpuScore > playerScore) {
+            document.getElementById('result').textContent = "You lose to the cpu by a score of " + cpuScore + " to " + playerScore + "!";
+
+        }
+        else if (cpuScore < playerScore) {
+            document.getElementById('result').textContent = "You beat to the cpu by a score of " + playerScore + " to " + cpuScore + "!";
+
+        }
+        else {
+            document.getElementById('result').textContent = 'error';
+        }
+
+       
+        button1.removeEventListener('click', button1Click);
+        button2.removeEventListener('click', button2Click);
+        button3.removeEventListener('click', button3Click);
+
+
+
+
+
+
+
+    }
+
 
 
 
 
 }
+
+ // Your JavaScript code here
+});
